@@ -10,7 +10,7 @@ public class DeckOfPlayingCards {
     public DeckOfPlayingCards() {
         playingCards = new ArrayList<>();
         for(int i = 0; i<52; i++) {
-            playingCards.add(new PlayingCard(15));
+            playingCards.add(new PlayingCard(13));
         }
     }
 
