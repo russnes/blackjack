@@ -1,0 +1,21 @@
+## Java
+*.class
+*.war
+*.ear
+hs_err_pid*
+
+## IntelliJ
+.idea/
+*.ipr
+*.iws
+*.iml
+out/
+
+## Gradle
+
+.gradle
+gradle-app.setting
+build/
+
+##Linux file system
+*.~1~*
