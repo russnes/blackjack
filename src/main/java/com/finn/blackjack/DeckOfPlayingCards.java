@@ -1,7 +1,9 @@
 package com.finn.blackjack;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class DeckOfPlayingCards {
 
@@ -16,8 +18,17 @@ public class DeckOfPlayingCards {
         }
     }
 
-    List<PlayingCard> getPlayingCards() {
+    public List<PlayingCard> getPlayingCards() {
         return playingCards;
+    }
+
+    public void shuffle(long seed) {
+        Random random = new Random(seed);
+        Collections.shuffle(playingCards, random);
+    }
+
+    public void shuffle() {
+        shuffle(System.currentTimeMillis());
     }
 
 }

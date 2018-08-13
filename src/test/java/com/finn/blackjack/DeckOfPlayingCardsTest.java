@@ -6,6 +6,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -38,5 +39,15 @@ public class DeckOfPlayingCardsTest {
             }
         }
     }
+
+    @Test
+    public void cardsAreInRandomOrderAfterShuffling() {
+        List<PlayingCard> orderOfCardsBeforeShuffling = new ArrayList<>();
+        orderOfCardsBeforeShuffling.addAll(deckOfPlayingCards.getPlayingCards());
+
+        deckOfPlayingCards.shuffle(1337);
+        Assert.assertFalse(orderOfCardsBeforeShuffling.equals(deckOfPlayingCards.getPlayingCards()));
+    }
+
 
 }
