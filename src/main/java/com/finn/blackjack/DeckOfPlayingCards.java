@@ -5,12 +5,14 @@ import java.util.List;
 
 public class DeckOfPlayingCards {
 
-    List<PlayingCard> playingCards;
+    private List<PlayingCard> playingCards;
 
     public DeckOfPlayingCards() {
         playingCards = new ArrayList<>();
-        for(int i = 0; i<52; i++) {
-            playingCards.add(new PlayingCard(13));
+        for(PlayingCard.Suite suite : PlayingCard.Suite.values()) {
+            for(int i = 1; i<14; i++) {
+                playingCards.add(new PlayingCard(i, suite));
+            }
         }
     }
 
