@@ -5,6 +5,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class GameOfBlackjackTest {
@@ -87,5 +88,132 @@ public class GameOfBlackjackTest {
         }
     }
 
+    @Test
+    public void gameIdentifiesBlackjackIfFirstPlayerHasInitialHandOf21() {
+        GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        Iterator<PlayingCard> playingCardIterator = gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().iterator();
+        PlayingCard ace = null;
+        PlayingCard ten = null;
+        for(PlayingCard playingCard : gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck()) {
+            if(playingCard.getPointValue() == 11) {
+                ace = playingCard;
+                if(ten != null) {
+                    break;
+                }
+            } else if(playingCard.getPointValue() == 10) {
+                ten = playingCard;
+                if(ace != null) {
+                    break;
+                }
+            }
+        }
 
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().remove(ace);
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().remove(ten);
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().add(0, ace);
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().add(2, ten);
+
+        gameOfBlackjack.deal();
+        Assert.assertTrue(gameOfBlackjack.someoneHasBlackjack());
+    }
+
+    @Test
+    public void gameIdentifiesBlackjackIfSecondPlayerHasInitialHandOf21() {
+        GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        PlayingCard ace = null;
+        PlayingCard ten = null;
+        for(PlayingCard playingCard : gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck()) {
+            if(playingCard.getPointValue() == 11) {
+                ace = playingCard;
+                if(ten != null) {
+                    break;
+                }
+            } else if(playingCard.getPointValue() == 10) {
+                ten = playingCard;
+                if(ace != null) {
+                    break;
+                }
+            }
+        }
+
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().remove(ace);
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().remove(ten);
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().add(1, ace);
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().add(3, ten);
+
+        gameOfBlackjack.deal();
+        Assert.assertTrue(gameOfBlackjack.someoneHasBlackjack());
+    }
+
+    @Test
+    public void playerWithInitial21WinsTheGame() {
+        GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        PlayingCard ace = null;
+        PlayingCard ten = null;
+        for(PlayingCard playingCard : gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck()) {
+            if(playingCard.getPointValue() == 11) {
+                ace = playingCard;
+                if(ten != null) {
+                    break;
+                }
+            } else if(playingCard.getPointValue() == 10) {
+                ten = playingCard;
+                if(ace != null) {
+                    break;
+                }
+            }
+        }
+
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().remove(ace);
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().remove(ten);
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().add(0, ace);
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().add(2, ten);
+
+        gameOfBlackjack.deal();
+        Player winner = gameOfBlackjack.getWinner();
+        Assert.assertEquals(gameOfBlackjack.getPlayers().get(0), winner);
+    }
+
+    @Test
+    public void samWinsWhenBothPlayersHaveBlackjack() {
+        GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        PlayingCard ace0 = null;
+        PlayingCard ten0 = null;
+        PlayingCard ace1 = null;
+        PlayingCard ten1 = null;
+        for(PlayingCard playingCard : gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck()) {
+            if(playingCard.getPointValue() == 11) {
+                if(ace0 == null) {
+                    ace0 = playingCard;
+                } else if(ace1 == null) {
+                    ace1 = playingCard;
+                }
+            } else if(playingCard.getPointValue() == 10) {
+                if(ten0 == null) {
+                    ten0 = playingCard;
+                } else if(ten1 == null) {
+                    ten1 = playingCard;
+                }
+            }
+        }
+
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().remove(ace0);
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().remove(ten0);
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().remove(ace1);
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().remove(ten1);
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().add(0, ace0);
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().add(1, ace1);
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().add(2, ten0);
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().add(3, ten0);
+
+        gameOfBlackjack.deal();
+        Player sam = null;
+        for(Player player : gameOfBlackjack.getPlayers()) {
+            if("Sam".equals(player.getName())) {
+                sam = player;
+            }
+        }
+
+        Assert.assertEquals(sam, gameOfBlackjack.getWinner());
+    }
 }

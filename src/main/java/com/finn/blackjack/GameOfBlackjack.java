@@ -7,8 +7,11 @@ public class GameOfBlackjack {
 
     private final List<Player> players;
     private DeckOfPlayingCards deckOfPlayingCards;
+    private boolean someoneHasBlackjack;
+    private Player winner;
 
     public GameOfBlackjack() {
+        someoneHasBlackjack = false;
         deckOfPlayingCards = new DeckOfPlayingCards();
         deckOfPlayingCards.shuffle();
         players = new ArrayList<>();
@@ -22,6 +25,15 @@ public class GameOfBlackjack {
                 player.getPlayingCards().add(deckOfPlayingCards.dealPlayingCard());
             }
         }
+
+        for(Player player : players) {
+            if(player.getScoreOfHand() == 21) {
+                someoneHasBlackjack = true;
+                if(winner == null) {
+                    winner = player;
+                }
+            }
+        }
     }
 
     public List<Player> getPlayers() {
@@ -30,5 +42,13 @@ public class GameOfBlackjack {
 
     public DeckOfPlayingCards getDeckOfPlayingCards() {
         return deckOfPlayingCards;
+    }
+
+    public boolean someoneHasBlackjack() {
+        return someoneHasBlackjack;
+    }
+
+    public Player getWinner() {
+        return winner;
     }
 }
