@@ -216,4 +216,27 @@ public class GameOfBlackjackTest {
 
         Assert.assertEquals(sam, gameOfBlackjack.getWinner());
     }
+
+    @Test
+    public void dealerWinsWhenBothHave22Initially() {
+        GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        List<PlayingCard> aces = new ArrayList<>();
+        for(PlayingCard playingCard : gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck()) {
+            if(playingCard.getPointValue() == 11) {
+                aces.add(playingCard);
+            }
+        }
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().removeAll(aces);
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().addAll(0, aces);
+        gameOfBlackjack.deal();
+
+        Player theDealer = null;
+        for(Player player : gameOfBlackjack.getPlayers()) {
+            if("the Dealer".equals(player.getName())) {
+                theDealer = player;
+            }
+        }
+
+        Assert.assertEquals(theDealer, gameOfBlackjack.getWinner());
+    }
 }

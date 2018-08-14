@@ -26,11 +26,20 @@ public class GameOfBlackjack {
             }
         }
 
+        boolean had22 = false;
         for(Player player : players) {
             if(player.getScoreOfHand() == 21) {
                 someoneHasBlackjack = true;
                 if(winner == null) {
                     winner = player;
+                }
+            }
+
+            if(player.getScoreOfHand() == 22) {
+                if(had22) {
+                    winner = player;
+                } else {
+                    had22 = true;
                 }
             }
         }
