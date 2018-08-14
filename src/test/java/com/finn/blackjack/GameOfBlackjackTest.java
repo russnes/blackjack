@@ -32,4 +32,25 @@ public class GameOfBlackjackTest {
         Assert.assertTrue(samExisted && theDealerExisted);
     }
 
+    @Test
+    public void playersAreDealtTwoCardsInitially() {
+        GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        gameOfBlackjack.deal();
+
+        Assert.assertEquals(2, gameOfBlackjack.getPlayers().get(0).getPlayingCards().size());
+        Assert.assertEquals(2, gameOfBlackjack.getPlayers().get(1).getPlayingCards().size());
+    }
+
+    @Test
+    public void cardsInPlayersHandsAreFromTheGameDeck() {
+        GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        gameOfBlackjack.deal();
+
+        for(Player player : gameOfBlackjack.getPlayers()) {
+            for(PlayingCard playingCard : player.getPlayingCards()) {
+                Assert.assertTrue(gameOfBlackjack.getDeckOfPlayingCards().getPlayingCards().contains(playingCard));
+            }
+        }
+    }
+
 }

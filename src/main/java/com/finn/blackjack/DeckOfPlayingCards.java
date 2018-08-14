@@ -27,6 +27,7 @@ public class DeckOfPlayingCards {
     public void shuffle(long seed) {
         Random random = new Random(seed);
         Collections.shuffle(playingCards, random);
+        shuffled = true;
     }
 
     public void shuffle() {
@@ -37,7 +38,7 @@ public class DeckOfPlayingCards {
         if(!shuffled) {
             throw new IllegalStateException("Deck must be shuffled before dealing a new Playing Card!");
         } else {
-            return playingCards.remove(0);
+            return playingCards.get(0);
         }
     }
 
