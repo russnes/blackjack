@@ -268,16 +268,16 @@ public class GameOfBlackjackTest {
     @Test
     public void cardIsAddedToSamsHandWhenDealt() {
         GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
-        List<PlayingCard> aces = new ArrayList<>();
+        List<PlayingCard> sevens = new ArrayList<>();
         for(PlayingCard playingCard : gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck()) {
-            if(playingCard.getPointValue() == 11) {
-                aces.add(playingCard);
+            if(playingCard.getPointValue() == 7) {
+                sevens.add(playingCard);
             }
         }
-        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().removeAll(aces);
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().removeAll(sevens);
 
-        //all aces are put later in the shuffled deck to ensure no one has blackjack
-        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().addAll(6, aces);
+        //all sevens are put at the beginning of the shuffled deck to ensure no one has blackjack
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().addAll(0, sevens);
         gameOfBlackjack.deal();
 
         Player sam = null;
