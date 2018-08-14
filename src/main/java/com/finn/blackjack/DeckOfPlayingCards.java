@@ -8,8 +8,10 @@ import java.util.Random;
 public class DeckOfPlayingCards {
 
     private List<PlayingCard> playingCards;
+    private boolean shuffled;
 
     public DeckOfPlayingCards() {
+        this.shuffled = false;
         playingCards = new ArrayList<>();
         for(PlayingCard.Suite suite : PlayingCard.Suite.values()) {
             for(int i = 1; i<14; i++) {
@@ -29,6 +31,14 @@ public class DeckOfPlayingCards {
 
     public void shuffle() {
         shuffle(System.currentTimeMillis());
+    }
+
+    public PlayingCard dealPlayingCard() {
+        if(!shuffled) {
+            throw new IllegalStateException("Deck must be shuffled before dealing a new Playing Card!");
+        } else {
+            return playingCards.remove(0);
+        }
     }
 
 }

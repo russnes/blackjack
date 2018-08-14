@@ -1,5 +1,6 @@
 package com.finn.blackjack;
 
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -12,9 +13,6 @@ public class GameOfBlackjackTest {
         GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
     }
 
-    @Test(expected = IllegalStateException.class)
-    public void cardsAreTakenFromAShuffledDeck() {
-        gameOfBlackjack.dealCard()
-    }
+    
 
 }

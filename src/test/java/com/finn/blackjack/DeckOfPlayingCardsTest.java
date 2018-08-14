@@ -49,5 +49,11 @@ public class DeckOfPlayingCardsTest {
         Assert.assertFalse(orderOfCardsBeforeShuffling.equals(deckOfPlayingCards.getPlayingCards()));
     }
 
+    @Test(expected = IllegalStateException.class)
+    public void cardsAreDealtFromAShuffledDeck() {
+        DeckOfPlayingCards deckOfPlayingCards = new DeckOfPlayingCards();
+        PlayingCard dealtPlayingCard = deckOfPlayingCards.dealPlayingCard();
+    }
+
 
 }
