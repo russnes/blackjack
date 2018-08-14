@@ -21,13 +21,13 @@ public class DeckOfPlayingCardsTest {
 
     @Test
     public void deckOfPlayingCardsShallHave52Cards() {
-        Assert.assertEquals(52, deckOfPlayingCards.getPlayingCards().size());
+        Assert.assertEquals(52, deckOfPlayingCards.getPlayingCardsInDeck().size() + deckOfPlayingCards.getDealtPlayingCards().size());
     }
 
     @Test
     public void eachPlayingCardInDeckIsUnique() {
         List<PlayingCard> playingCardsToCheck = new ArrayList<>();
-        playingCardsToCheck.addAll(deckOfPlayingCards.getPlayingCards());
+        playingCardsToCheck.addAll(deckOfPlayingCards.getPlayingCardsInDeck());
         Iterator<PlayingCard> playingCardIterator = playingCardsToCheck.iterator();
         while (playingCardIterator.hasNext()) {
             PlayingCard playingCardToCheck = playingCardsToCheck.remove(0);
@@ -43,16 +43,26 @@ public class DeckOfPlayingCardsTest {
     @Test
     public void cardsAreInRandomOrderAfterShuffling() {
         List<PlayingCard> orderOfCardsBeforeShuffling = new ArrayList<>();
-        orderOfCardsBeforeShuffling.addAll(deckOfPlayingCards.getPlayingCards());
+        orderOfCardsBeforeShuffling.addAll(deckOfPlayingCards.getPlayingCardsInDeck());
 
         deckOfPlayingCards.shuffle(1337);
-        Assert.assertFalse(orderOfCardsBeforeShuffling.equals(deckOfPlayingCards.getPlayingCards()));
+        Assert.assertFalse(orderOfCardsBeforeShuffling.equals(deckOfPlayingCards.getPlayingCardsInDeck()));
     }
 
     @Test(expected = IllegalStateException.class)
     public void cardsAreDealtFromAShuffledDeck() {
         DeckOfPlayingCards deckOfPlayingCards = new DeckOfPlayingCards();
         PlayingCard dealtPlayingCard = deckOfPlayingCards.dealPlayingCard();
+    }
+
+
+    @Test
+    public void dealtCardsAreRemovedFromTheTopOfTheDeck() {
+        DeckOfPlayingCards deckOfPlayingCards = new DeckOfPlayingCards();
+        deckOfPlayingCards.shuffle();
+        PlayingCard dealtCard = deckOfPlayingCards.dealPlayingCard();
+        PlayingCard anotherDealtCard = deckOfPlayingCards.dealPlayingCard();
+        Assert.assertNotEquals(dealtCard, anotherDealtCard);
     }
 
 

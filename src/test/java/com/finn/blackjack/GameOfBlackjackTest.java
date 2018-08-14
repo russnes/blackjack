@@ -4,6 +4,9 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GameOfBlackjackTest {
 
     static GameOfBlackjack gameOfBlackjack;
@@ -48,9 +51,29 @@ public class GameOfBlackjackTest {
 
         for(Player player : gameOfBlackjack.getPlayers()) {
             for(PlayingCard playingCard : player.getPlayingCards()) {
-                Assert.assertTrue(gameOfBlackjack.getDeckOfPlayingCards().getPlayingCards().contains(playingCard));
+                Assert.assertTrue(gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().contains(playingCard)
+                || gameOfBlackjack.getDeckOfPlayingCards().getDealtPlayingCards().contains(playingCard));
             }
         }
     }
+
+    @Test
+    public void cardsAreDealtInitiallyInAlternatingOrder() {
+        GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        List<PlayingCard> originallyOrderedPlayingCards = new ArrayList<>();
+        for(int i = 0; i<4; i++) {
+            originallyOrderedPlayingCards.add(gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().get(i));
+        }
+
+        gameOfBlackjack.deal();
+        for(Player player : gameOfBlackjack.getPlayers()) {
+            PlayingCard firstPlayingCard = player.getPlayingCards().get(0);
+            PlayingCard secondPlayingCard = player.getPlayingCards().get(1);
+            int indexOfFirstPlayingCard = originallyOrderedPlayingCards.indexOf(firstPlayingCard);
+            int indexOfSecondPlayingCard = originallyOrderedPlayingCards.indexOf(secondPlayingCard);
+            Assert.assertFalse(indexOfSecondPlayingCard == indexOfFirstPlayingCard+1);
+        }
+    }
+
 
 }
