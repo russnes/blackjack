@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class DeckOfPlayingCards {
 
-    private List<PlayingCard> playingCards;
+    private final List<PlayingCard> playingCards;
     private boolean shuffled;
 
     public DeckOfPlayingCards() {

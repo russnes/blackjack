@@ -10,9 +10,26 @@ public class GameOfBlackjackTest {
 
     @BeforeClass
     public static void init() {
-        GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        gameOfBlackjack = new GameOfBlackjack();
     }
 
-    
+    @Test
+    public void gameHasTwoPlayers() {
+        Assert.assertEquals(2, gameOfBlackjack.getPlayers().size());
+    }
+
+    @Test
+    public void playersAreNamedSamAndTheDealer() {
+        boolean samExisted = false;
+        boolean theDealerExisted = false;
+        for(Player player : gameOfBlackjack.getPlayers()) {
+            if("Sam".equals(player.getName())) {
+                samExisted = true;
+            } else if("the Dealer".equals(player.getName())) {
+                theDealerExisted = true;
+            }
+        }
+        Assert.assertTrue(samExisted && theDealerExisted);
+    }
 
 }
