@@ -440,4 +440,97 @@ public class GameOfBlackjackTest {
 
         gameOfBlackjack.dealCardToPlayer(theDealer);
     }
+
+    @Test(expected = IllegalStateException.class)
+    public void theDealerMustStopDrawingOnceTheirTotalIsHigherThanSam() {
+        GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        List<PlayingCard> sevens = new ArrayList<>();
+        PlayingCard three = null;
+        PlayingCard four = null;
+        for(PlayingCard playingCard : gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck()) {
+            if(playingCard.getPointValue() == 7) {
+                sevens.add(playingCard);
+            } else if(playingCard.getPointValue() == 3) {
+                three = playingCard;
+            } else if(playingCard.getPointValue() == 4) {
+                four = playingCard;
+            }
+        }
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().removeAll(sevens);
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().remove(three);
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().remove(four);
+
+        //all sevens are put first in the shuffled deck to ensure no one has blackjack, and sam has 14,
+        // and then stops at 17 from getting a 3
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().addAll(0, sevens);
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().add(4, three);
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().add(5, four);
+        gameOfBlackjack.deal();
+
+        Player sam = null;
+        for(Player player : gameOfBlackjack.getPlayers()) {
+            if("Sam".equals(player.getName())) {
+                sam = player;
+            }
+        }
+
+        gameOfBlackjack.dealCardToPlayer(sam);
+
+        Player theDealer = null;
+        for(Player player : gameOfBlackjack.getPlayers()) {
+            if("the Dealer".equals(player.getName())) {
+                theDealer = player;
+            }
+        }
+
+        gameOfBlackjack.dealCardToPlayer(theDealer);
+        gameOfBlackjack.dealCardToPlayer(theDealer);
+    }
+
+    @Test
+    public void dealerWinsIfStoppingBeforeBreaking() {
+        GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        List<PlayingCard> sevens = new ArrayList<>();
+        PlayingCard three = null;
+        PlayingCard four = null;
+        for(PlayingCard playingCard : gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck()) {
+            if(playingCard.getPointValue() == 7) {
+                sevens.add(playingCard);
+            } else if(playingCard.getPointValue() == 3) {
+                three = playingCard;
+            } else if(playingCard.getPointValue() == 4) {
+                four = playingCard;
+            }
+        }
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().removeAll(sevens);
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().remove(three);
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().remove(four);
+
+        //all sevens are put first in the shuffled deck to ensure no one has blackjack, and sam has 14,
+        // and then stops at 17 from getting a 3
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().addAll(0, sevens);
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().add(4, three);
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().add(5, four);
+        gameOfBlackjack.deal();
+
+        Player sam = null;
+        for(Player player : gameOfBlackjack.getPlayers()) {
+            if("Sam".equals(player.getName())) {
+                sam = player;
+            }
+        }
+
+        gameOfBlackjack.dealCardToPlayer(sam);
+
+        Player theDealer = null;
+        for(Player player : gameOfBlackjack.getPlayers()) {
+            if("the Dealer".equals(player.getName())) {
+                theDealer = player;
+            }
+        }
+
+        gameOfBlackjack.dealCardToPlayer(theDealer);
+
+        Assert.assertEquals(theDealer, gameOfBlackjack.getWinner());
+    }
 }

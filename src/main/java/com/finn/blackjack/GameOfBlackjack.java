@@ -58,14 +58,22 @@ public class GameOfBlackjack {
                 throw new IllegalStateException("Player cannot draw when score of hand is equal to or greater than 17");
             }
         } else {
-            if(sam.getScoreOfHand() <= 17) {
+            if(sam.getScoreOfHand() < 17) {
                 throw new IllegalStateException("Dealer cannot draw before Sam has finished drawing");
+            } else if(player.getScoreOfHand()>sam.getScoreOfHand()) {
+                throw new IllegalStateException("Dealer must stop drawing after reaching higher score than Sam");
             }
         }
 
         player.getPlayingCards().add(deckOfPlayingCards.dealPlayingCard());
         if(player.getScoreOfHand() > 21) {
             loseGameForPlayer(player);
+        }
+
+        if(theDealer.equals(player)) {
+            if(player.getScoreOfHand() > sam.getScoreOfHand()) {
+                loseGameForPlayer(sam);
+            }
         }
     }
 
