@@ -12,8 +12,8 @@ public class GameOfBlackjack {
         deckOfPlayingCards = new DeckOfPlayingCards();
         deckOfPlayingCards.shuffle();
         players = new ArrayList<>();
-        players.add(new Player("the Dealer"));
         players.add(new Player("Sam"));
+        players.add(new Player("the Dealer"));
     }
 
     public void deal() {

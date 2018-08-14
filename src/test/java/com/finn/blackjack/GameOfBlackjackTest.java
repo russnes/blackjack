@@ -75,5 +75,17 @@ public class GameOfBlackjackTest {
         }
     }
 
+    @Test
+    public void samIsDealtTheFirstCard() {
+        GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        PlayingCard firstPlayingCard = gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().get(0);
+        gameOfBlackjack.deal();
+        for(Player player : gameOfBlackjack.getPlayers()) {
+            if("Sam".equals(player.getName())) {
+                Assert.assertTrue(player.getPlayingCards().contains(firstPlayingCard));
+            }
+        }
+    }
+
 
 }
