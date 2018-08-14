@@ -13,6 +13,14 @@ public class Player {
         playingCards = new ArrayList<>();
     }
 
+    public int getScoreOfHand() {
+        int score = 0;
+        for(PlayingCard playingCard : playingCards) {
+            score += playingCard.getPointValue();
+        }
+        return score;
+    }
+
     public String getName() {
         return name;
     }

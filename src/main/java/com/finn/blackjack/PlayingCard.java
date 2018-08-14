@@ -29,6 +29,16 @@ public class PlayingCard {
         return value;
     }
 
+    public int getPointValue() {
+        if(value == 1) {
+            return 11;
+        } else if(value <= 10) {
+            return value;
+        } else {
+            return 10;
+        }
+    }
+
     public Suite getSuite() {
         return suite;
     }
