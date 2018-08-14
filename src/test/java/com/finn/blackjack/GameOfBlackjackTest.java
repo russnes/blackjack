@@ -243,16 +243,16 @@ public class GameOfBlackjackTest {
     @Test
     public void samCanDrawCardsWhenNeitherPlayerHasBlackjack() {
         GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
-        List<PlayingCard> aces = new ArrayList<>();
+        List<PlayingCard> sevens = new ArrayList<>();
         for(PlayingCard playingCard : gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck()) {
-            if(playingCard.getPointValue() == 11) {
-                aces.add(playingCard);
+            if(playingCard.getPointValue() == 7) {
+                sevens.add(playingCard);
             }
         }
-        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().removeAll(aces);
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().removeAll(sevens);
 
-        //all aces are put later in the shuffled deck to ensure no one has blackjack
-        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().addAll(6, aces);
+        //four sevens are put in the beginning of the deck to ensure no one has blackjack
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().addAll(0, sevens);
         gameOfBlackjack.deal();
 
         Player sam = null;
@@ -330,10 +330,80 @@ public class GameOfBlackjackTest {
             }
         }
         gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().removeAll(tens);
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().remove(seven);
 
         //all tens are put first in the shuffled deck to ensure no one has blackjack, and sam has 17
         gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().addAll(0, tens);
         gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().add(0, seven);
+        gameOfBlackjack.deal();
+
+        Player sam = null;
+        for(Player player : gameOfBlackjack.getPlayers()) {
+            if("Sam".equals(player.getName())) {
+                sam = player;
+            }
+        }
+
+        gameOfBlackjack.dealCardToPlayer(sam);
+    }
+
+    @Test
+    public void samLosesTheGameIfHeExceeds21() {
+        GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        List<PlayingCard> sevens = new ArrayList<>();
+        PlayingCard nine = null;
+        for(PlayingCard playingCard : gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck()) {
+            if(playingCard.getPointValue() == 7) {
+                sevens.add(playingCard);
+            } else if(playingCard.getPointValue() == 9) {
+                nine = playingCard;
+            }
+        }
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().removeAll(sevens);
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().remove(nine);
+
+        //all sevens are put first in the shuffled deck to ensure no one has blackjack, and sam has 14,
+        // and then breaks on the next draw with another 9
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().addAll(0, sevens);
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().add(4, nine);
+        gameOfBlackjack.deal();
+
+        Player sam = null;
+        for(Player player : gameOfBlackjack.getPlayers()) {
+            if("Sam".equals(player.getName())) {
+                sam = player;
+            }
+        }
+
+        gameOfBlackjack.dealCardToPlayer(sam);
+
+        Assert.assertTrue(gameOfBlackjack.getWinner() != null && !gameOfBlackjack.getWinner().equals(sam));
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void cardsCannotBeDrawnWhenGameHasBeenWon() {
+        GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        PlayingCard ace = null;
+        PlayingCard ten = null;
+        for(PlayingCard playingCard : gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck()) {
+            if(playingCard.getPointValue() == 11) {
+                ace = playingCard;
+                if(ten != null) {
+                    break;
+                }
+            } else if(playingCard.getPointValue() == 10) {
+                ten = playingCard;
+                if(ace != null) {
+                    break;
+                }
+            }
+        }
+
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().remove(ace);
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().remove(ten);
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().add(1, ace);
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().add(3, ten);
+        
         gameOfBlackjack.deal();
 
         Player sam = null;

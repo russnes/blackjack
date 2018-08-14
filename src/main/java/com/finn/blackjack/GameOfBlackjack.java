@@ -48,8 +48,21 @@ public class GameOfBlackjack {
     public void dealCardToPlayer(Player player) {
         if(player.getScoreOfHand() >= 17) {
             throw new IllegalStateException("Player cannot draw when score of hand is equal to or greater than 17");
+        } else if(winner != null) {
+            throw new IllegalStateException("Cannot deal card when game has been won");
         }
         player.getPlayingCards().add(deckOfPlayingCards.dealPlayingCard());
+        if(player.getScoreOfHand() > 21) {
+            loseGameForPlayer(player);
+        }
+    }
+
+    private void loseGameForPlayer(Player loser) {
+        for(Player player : players) {
+            if(!loser.equals(player)) {
+                this.winner = player;
+            }
+        }
     }
 
     public List<Player> getPlayers() {
