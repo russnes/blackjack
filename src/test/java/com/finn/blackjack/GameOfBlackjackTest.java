@@ -303,7 +303,7 @@ public class GameOfBlackjackTest {
         }
         gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().removeAll(tens);
 
-        //all aces are put later in the shuffled deck to ensure no one has blackjack
+        //all tens are put first in the shuffled deck to ensure no one has blackjack
         gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().addAll(0, tens);
         gameOfBlackjack.deal();
 
@@ -331,7 +331,7 @@ public class GameOfBlackjackTest {
         }
         gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().removeAll(tens);
 
-        //all aces are put later in the shuffled deck to ensure no one has blackjack, and sam has 17
+        //all tens are put first in the shuffled deck to ensure no one has blackjack, and sam has 17
         gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().addAll(0, tens);
         gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().add(0, seven);
         gameOfBlackjack.deal();
