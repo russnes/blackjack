@@ -239,4 +239,56 @@ public class GameOfBlackjackTest {
 
         Assert.assertEquals(theDealer, gameOfBlackjack.getWinner());
     }
+
+    @Test
+    public void samCanDrawCardsWhenNeitherPlayerHasBlackjack() {
+        GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        List<PlayingCard> aces = new ArrayList<>();
+        for(PlayingCard playingCard : gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck()) {
+            if(playingCard.getPointValue() == 11) {
+                aces.add(playingCard);
+            }
+        }
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().removeAll(aces);
+
+        //all aces are put later in the shuffled deck to ensure no one has blackjack
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().addAll(6, aces);
+        gameOfBlackjack.deal();
+
+        Player sam = null;
+        for(Player player : gameOfBlackjack.getPlayers()) {
+            if("Sam".equals(player.getName())) {
+                sam = player;
+            }
+        }
+
+        gameOfBlackjack.dealCardToPlayer(sam);
+    }
+
+    @Test
+    public void cardIsAddedToSamsHandWhenDealt() {
+        GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        List<PlayingCard> aces = new ArrayList<>();
+        for(PlayingCard playingCard : gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck()) {
+            if(playingCard.getPointValue() == 11) {
+                aces.add(playingCard);
+            }
+        }
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().removeAll(aces);
+
+        //all aces are put later in the shuffled deck to ensure no one has blackjack
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().addAll(6, aces);
+        gameOfBlackjack.deal();
+
+        Player sam = null;
+        for(Player player : gameOfBlackjack.getPlayers()) {
+            if("Sam".equals(player.getName())) {
+                sam = player;
+            }
+        }
+
+        PlayingCard currentNextPlayingCard = gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().get(0);
+        gameOfBlackjack.dealCardToPlayer(sam);
+        Assert.assertTrue(sam.getPlayingCards().contains(currentNextPlayingCard));
+    }
 }

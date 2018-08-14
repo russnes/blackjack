@@ -45,6 +45,10 @@ public class GameOfBlackjack {
         }
     }
 
+    public void dealCardToPlayer(Player player) {
+        player.getPlayingCards().add(deckOfPlayingCards.dealPlayingCard());
+    }
+
     public List<Player> getPlayers() {
         return players;
     }
