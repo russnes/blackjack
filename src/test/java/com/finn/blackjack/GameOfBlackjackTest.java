@@ -291,4 +291,58 @@ public class GameOfBlackjackTest {
         gameOfBlackjack.dealCardToPlayer(sam);
         Assert.assertTrue(sam.getPlayingCards().contains(currentNextPlayingCard));
     }
+
+    @Test(expected = IllegalStateException.class)
+    public void samCannotDrawIfHisHandScoreIsGreaterThan17() {
+        GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        List<PlayingCard> tens = new ArrayList<>();
+        for(PlayingCard playingCard : gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck()) {
+            if(playingCard.getPointValue() == 10) {
+                tens.add(playingCard);
+            }
+        }
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().removeAll(tens);
+
+        //all aces are put later in the shuffled deck to ensure no one has blackjack
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().addAll(0, tens);
+        gameOfBlackjack.deal();
+
+        Player sam = null;
+        for(Player player : gameOfBlackjack.getPlayers()) {
+            if("Sam".equals(player.getName())) {
+                sam = player;
+            }
+        }
+
+        gameOfBlackjack.dealCardToPlayer(sam);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void samCannotDrawIfHisHandScoreIsExactly17() {
+        GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        List<PlayingCard> tens = new ArrayList<>();
+        PlayingCard seven = null;
+        for(PlayingCard playingCard : gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck()) {
+            if(playingCard.getPointValue() == 10) {
+                tens.add(playingCard);
+            } else if(playingCard.getPointValue() == 7) {
+                seven = playingCard;
+            }
+        }
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().removeAll(tens);
+
+        //all aces are put later in the shuffled deck to ensure no one has blackjack, and sam has 17
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().addAll(0, tens);
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().add(0, seven);
+        gameOfBlackjack.deal();
+
+        Player sam = null;
+        for(Player player : gameOfBlackjack.getPlayers()) {
+            if("Sam".equals(player.getName())) {
+                sam = player;
+            }
+        }
+
+        gameOfBlackjack.dealCardToPlayer(sam);
+    }
 }

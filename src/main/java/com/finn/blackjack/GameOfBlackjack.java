@@ -46,6 +46,9 @@ public class GameOfBlackjack {
     }
 
     public void dealCardToPlayer(Player player) {
+        if(player.getScoreOfHand() >= 17) {
+            throw new IllegalStateException("Player cannot draw when score of hand is equal to or greater than 17");
+        }
         player.getPlayingCards().add(deckOfPlayingCards.dealPlayingCard());
     }
 
