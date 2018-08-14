@@ -403,7 +403,7 @@ public class GameOfBlackjackTest {
         gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().remove(ten);
         gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().add(1, ace);
         gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().add(3, ten);
-        
+
         gameOfBlackjack.deal();
 
         Player sam = null;
@@ -414,5 +414,30 @@ public class GameOfBlackjackTest {
         }
 
         gameOfBlackjack.dealCardToPlayer(sam);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void theDealerCannotDrawCardsBeforeSamHasStoppedDrawingCards() {
+        GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        List<PlayingCard> sevens = new ArrayList<>();
+        for(PlayingCard playingCard : gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck()) {
+            if(playingCard.getPointValue() == 7) {
+                sevens.add(playingCard);
+            }
+        }
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().removeAll(sevens);
+
+        //all sevens are put first in the shuffled deck to ensure no one has blackjack
+        gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().addAll(0, sevens);
+        gameOfBlackjack.deal();
+
+        Player theDealer = null;
+        for(Player player : gameOfBlackjack.getPlayers()) {
+            if("the Dealer".equals(player.getName())) {
+                theDealer = player;
+            }
+        }
+
+        gameOfBlackjack.dealCardToPlayer(theDealer);
     }
 }

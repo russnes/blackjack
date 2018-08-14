@@ -5,6 +5,8 @@ import java.util.List;
 
 public class GameOfBlackjack {
 
+    private Player sam;
+    private Player theDealer;
     private final List<Player> players;
     private DeckOfPlayingCards deckOfPlayingCards;
     private boolean someoneHasBlackjack;
@@ -14,9 +16,11 @@ public class GameOfBlackjack {
         someoneHasBlackjack = false;
         deckOfPlayingCards = new DeckOfPlayingCards();
         deckOfPlayingCards.shuffle();
+        sam = new Player("Sam");
+        theDealer = new Player("the Dealer");
         players = new ArrayList<>();
-        players.add(new Player("Sam"));
-        players.add(new Player("the Dealer"));
+        players.add(sam);
+        players.add(theDealer);
     }
 
     public void deal() {
@@ -46,11 +50,19 @@ public class GameOfBlackjack {
     }
 
     public void dealCardToPlayer(Player player) {
-        if(player.getScoreOfHand() >= 17) {
-            throw new IllegalStateException("Player cannot draw when score of hand is equal to or greater than 17");
-        } else if(winner != null) {
+        if(winner != null) {
             throw new IllegalStateException("Cannot deal card when game has been won");
         }
+        if(sam.equals(player)) {
+            if(player.getScoreOfHand() >= 17) {
+                throw new IllegalStateException("Player cannot draw when score of hand is equal to or greater than 17");
+            }
+        } else {
+            if(sam.getScoreOfHand() <= 17) {
+                throw new IllegalStateException("Dealer cannot draw before Sam has finished drawing");
+            }
+        }
+
         player.getPlayingCards().add(deckOfPlayingCards.dealPlayingCard());
         if(player.getScoreOfHand() > 21) {
             loseGameForPlayer(player);
