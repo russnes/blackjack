@@ -24,4 +24,15 @@ public class BlackjackSimulatorTest {
 
         verify(mockedGameOfBlackjackBuilder, times(1)).createGameWithParsedDeck(pathToFile);
     }
+
+    @Test
+    public void passingNoArgumentsInitiatesGameWithRandomDeck() {
+        GameOfBlackjackBuilder mockedGameOfBlackjackBuilder = mock(GameOfBlackjackBuilder.class);
+
+        BlackjackSimulator blackjackSimulator = new BlackjackSimulator();
+        blackjackSimulator.setGameOfBlackjackBuilder(mockedGameOfBlackjackBuilder);
+        blackjackSimulator.simulateBlackjackGame();
+
+        verify(mockedGameOfBlackjackBuilder, times(1)).createGameWithRandomDeck();
+    }
 }

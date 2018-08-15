@@ -11,7 +11,13 @@ public class BlackjackSimulator {
     public void simulateBlackjackGame(String... args) {
         if(args.length > 0) {
             simulateGameWithImportedDeck(args[0]);
+        } else {
+            simulateGameWithRandomDeck();
         }
+    }
+
+    public void simulateGameWithRandomDeck() {
+        gameOfBlackjackBuilder.createGameWithRandomDeck();
     }
 
     public void simulateGameWithImportedDeck(String pathToDeckFile) {
