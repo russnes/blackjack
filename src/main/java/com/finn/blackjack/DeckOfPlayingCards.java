@@ -1,5 +1,10 @@
 package com.finn.blackjack;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,6 +24,19 @@ public class DeckOfPlayingCards {
             for(int i = 1; i<14; i++) {
                 playingCardsInDeck.add(new PlayingCard(i, suite));
             }
+        }
+    }
+
+    public DeckOfPlayingCards(String pathToFile) throws IOException {
+        playingCardsInDeck = new ArrayList<>();
+        dealtPlayingCards = new ArrayList<>();
+        byte[] bytes = Files.readAllBytes(Paths.get(pathToFile));
+        String inputText = new String(bytes);
+        inputText = inputText.trim();
+        String[] cards = inputText.split(",");
+        for(String card : cards) {
+            PlayingCard playingCard = new PlayingCard(card);
+            playingCardsInDeck.add(playingCard);
         }
     }
 

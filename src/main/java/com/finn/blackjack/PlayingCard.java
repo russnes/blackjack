@@ -2,6 +2,15 @@ package com.finn.blackjack;
 
 public class PlayingCard {
 
+    public static final char CHAR_HEARTS = 'H';
+    public static final char CHAR_SPADES = 'S';
+    public static final char CHAR_DIAMONDS = 'D';
+    public static final char CHAR_CLUBS = 'C';
+    public static final char CHAR_ACE = 'A';
+    public static final char CHAR_KING = 'K';
+    public static final char CHAR_QUEEN = 'Q';
+    public static final char CHAR_JACK = 'J';
+
     public enum Suite {
         HEARTS,
         SPADES,
@@ -23,6 +32,10 @@ public class PlayingCard {
         }
         this.value = value;
         this.suite = suite;
+    }
+
+    public PlayingCard(String definition) {
+
     }
 
     public int getValue() {
