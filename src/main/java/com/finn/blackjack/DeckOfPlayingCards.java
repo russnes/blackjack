@@ -32,9 +32,9 @@ public class DeckOfPlayingCards {
         dealtPlayingCards = new ArrayList<>();
         byte[] bytes = Files.readAllBytes(Paths.get(pathToFile));
         String inputText = new String(bytes);
-        inputText = inputText.trim();
         String[] cards = inputText.split(",");
         for(String card : cards) {
+            card = card.trim();
             PlayingCard playingCard = new PlayingCard(card);
             playingCardsInDeck.add(playingCard);
         }

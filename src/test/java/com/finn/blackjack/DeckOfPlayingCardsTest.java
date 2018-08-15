@@ -95,6 +95,7 @@ public class DeckOfPlayingCardsTest {
         for(int i = 0; i<cards.length; i++) {
             stringBuilder.setLength(0);
             String cardAsProvidedText = cards[i];
+            cardAsProvidedText = cardAsProvidedText.trim();
             PlayingCard correspondingPlayingCard = deckOfPlayingCards.getPlayingCardsInDeck().get(i);
 
             switch (correspondingPlayingCard.getSuite()) {

@@ -35,7 +35,77 @@ public class PlayingCard {
     }
 
     public PlayingCard(String definition) {
+        char suiteChar = definition.charAt(0);
+        switch (suiteChar) {
+            case CHAR_DIAMONDS:
+                suite = Suite.DIAMONDS;
+                break;
+            case CHAR_CLUBS:
+                suite = Suite.CLUBS;
+                break;
+            case CHAR_HEARTS:
+                suite = Suite.HEARTS;
+                break;
+            case CHAR_SPADES:
+                suite = Suite.SPADES;
+                break;
+                default:
+                    throw new IllegalArgumentException("Trying to parse card with invalid suite!");
+        }
 
+        char valueChar = definition.charAt(1);
+        switch (valueChar) {
+            case CHAR_ACE:
+                value = 1;
+                break;
+            case CHAR_KING:
+                value = 13;
+                break;
+            case CHAR_QUEEN:
+                value = 12;
+                break;
+            case CHAR_JACK:
+                value = 11;
+                break;
+                default:
+                    value = Integer.valueOf(definition.substring(1));
+        }
+    }
+
+    public String getTextRepresentationOfCard(StringBuilder stringBuilder) {
+        switch (suite) {
+            case DIAMONDS:
+                stringBuilder.append(PlayingCard.CHAR_DIAMONDS);
+                break;
+            case SPADES:
+                stringBuilder.append(PlayingCard.CHAR_SPADES);
+                break;
+            case HEARTS:
+                stringBuilder.append(PlayingCard.CHAR_HEARTS);
+                break;
+            case CLUBS:
+                stringBuilder.append(PlayingCard.CHAR_CLUBS);
+                break;
+        }
+
+        switch (value) {
+            case 1:
+                stringBuilder.append(PlayingCard.CHAR_ACE);
+                break;
+            case 11:
+                stringBuilder.append(PlayingCard.CHAR_JACK);
+                break;
+            case 12:
+                stringBuilder.append(PlayingCard.CHAR_QUEEN);
+                break;
+            case 13:
+                stringBuilder.append(PlayingCard.CHAR_KING);
+                break;
+            default:
+                stringBuilder.append(value);
+                break;
+        }
+        return stringBuilder.toString();
     }
 
     public int getValue() {
