@@ -13,7 +13,7 @@ public class GameOfBlackjackBuilder {
     }
 
     public void createGameWithRandomDeck() {
-
+        gameOfBlackjack.initializeWithRandomDeck();
     }
 
     public void setGameOfBlackjack(GameOfBlackjack gameOfBlackjack) {

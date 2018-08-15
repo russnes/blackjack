@@ -23,6 +23,10 @@ public class GameOfBlackjack {
         players.add(theDealer);
     }
 
+    public void initializeWithRandomDeck() {
+
+    }
+
     public void initializeWithLoadedDeck(String path) {
 
     }

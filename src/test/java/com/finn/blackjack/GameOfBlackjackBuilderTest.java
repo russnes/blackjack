@@ -7,6 +7,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 public class GameOfBlackjackBuilderTest {
+
     @Test
     public void callingBuildGameWithLoadedDeckCreatesGameWithDeckFileInput() {
         GameOfBlackjackBuilder gameOfBlackjackBuilder = new GameOfBlackjackBuilder();
@@ -18,5 +19,16 @@ public class GameOfBlackjackBuilderTest {
         gameOfBlackjackBuilder.createGameWithParsedDeck(path);
 
         verify(mockedGameOfBlackjack, times(1)).initializeWithLoadedDeck(path);
+    }
+
+    @Test
+    public void callingBuildWithRandomDeckInitiatesGameWithRandomDeck() {
+        GameOfBlackjackBuilder gameOfBlackjackBuilder = new GameOfBlackjackBuilder();
+        GameOfBlackjack mockedGameOfBlackjack = mock(GameOfBlackjack.class);
+        gameOfBlackjackBuilder.setGameOfBlackjack(mockedGameOfBlackjack);
+
+        gameOfBlackjackBuilder.createGameWithRandomDeck();
+
+        verify(mockedGameOfBlackjack, times(1)).initializeWithRandomDeck();
     }
 }
