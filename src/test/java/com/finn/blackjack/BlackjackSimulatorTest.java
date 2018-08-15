@@ -5,13 +5,14 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.io.File;
+import java.io.IOException;
 
 import static org.mockito.Mockito.*;
 
 public class BlackjackSimulatorTest {
 
     @Test
-    public void passingArgumentPathInitiatesGameWithParsedDeck() {
+    public void passingArgumentPathInitiatesGameWithParsedDeck() throws IOException {
         ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource("example_deck").getFile());
         String pathToFile = file.getAbsolutePath();
@@ -26,7 +27,7 @@ public class BlackjackSimulatorTest {
     }
 
     @Test
-    public void passingNoArgumentsInitiatesGameWithRandomDeck() {
+    public void passingNoArgumentsInitiatesGameWithRandomDeck() throws IOException {
         GameOfBlackjackBuilder mockedGameOfBlackjackBuilder = mock(GameOfBlackjackBuilder.class);
 
         BlackjackSimulator blackjackSimulator = new BlackjackSimulator();

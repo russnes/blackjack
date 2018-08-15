@@ -69,7 +69,7 @@ public class DeckOfPlayingCardsTest {
     }
 
     @Test
-    public void cardsParsedFromFileAppearInTheProvidedOrder() {
+    public void cardsParsedFromFileAppearInTheProvidedOrder() throws IOException {
         ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource("example_deck").getFile());
         String pathToFile = file.getAbsolutePath();
@@ -84,11 +84,8 @@ public class DeckOfPlayingCardsTest {
         String[] cards = inputText.split(",");
 
         DeckOfPlayingCards deckOfPlayingCards = null;
-        try {
-            deckOfPlayingCards = new DeckOfPlayingCards(pathToFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        deckOfPlayingCards = new DeckOfPlayingCards();
+        deckOfPlayingCards.initiateNewLoadedDeck(pathToFile);
         
         StringBuilder stringBuilder = new StringBuilder();
         Assert.assertEquals(cards.length, deckOfPlayingCards.getPlayingCardsInDeck().size());

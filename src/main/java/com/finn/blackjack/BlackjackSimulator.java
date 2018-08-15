@@ -1,5 +1,7 @@
 package com.finn.blackjack;
 
+import java.io.IOException;
+
 public class BlackjackSimulator {
 
     public GameOfBlackjackBuilder gameOfBlackjackBuilder;
@@ -8,7 +10,7 @@ public class BlackjackSimulator {
         gameOfBlackjackBuilder = new GameOfBlackjackBuilder();
     }
 
-    public void simulateBlackjackGame(String... args) {
+    public void simulateBlackjackGame(String... args) throws IOException {
         if(args.length > 0) {
             simulateGameWithImportedDeck(args[0]);
         } else {
@@ -20,7 +22,7 @@ public class BlackjackSimulator {
         gameOfBlackjackBuilder.createGameWithRandomDeck();
     }
 
-    public void simulateGameWithImportedDeck(String pathToDeckFile) {
+    public void simulateGameWithImportedDeck(String pathToDeckFile) throws IOException {
         gameOfBlackjackBuilder.createGameWithParsedDeck(pathToDeckFile);
     }
 

@@ -22,10 +22,8 @@ public class DeckOfPlayingCards {
         dealtPlayingCards = new ArrayList<>();
     }
 
-    public DeckOfPlayingCards(String pathToFile) throws IOException {
-        playingCardsInDeck = new ArrayList<>();
-        dealtPlayingCards = new ArrayList<>();
-        byte[] bytes = Files.readAllBytes(Paths.get(pathToFile));
+    public void initiateNewLoadedDeck(String path) throws IOException {
+        byte[] bytes = Files.readAllBytes(Paths.get(path));
         String inputText = new String(bytes);
         String[] cards = inputText.split(",");
         for(String card : cards) {

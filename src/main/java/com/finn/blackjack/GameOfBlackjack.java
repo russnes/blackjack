@@ -1,5 +1,6 @@
 package com.finn.blackjack;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +28,8 @@ public class GameOfBlackjack {
         deckOfPlayingCards.initiateNewShuffledDeck();
     }
 
-    public void initializeWithLoadedDeck(String path) {
-
+    public void initializeWithLoadedDeck(String path) throws IOException {
+        deckOfPlayingCards.initiateNewLoadedDeck(path);
     }
 
     public void deal() {

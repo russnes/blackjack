@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -562,5 +563,15 @@ public class GameOfBlackjackTest {
         gameOfBlackjack.setDeckOfPlayingCards(mockedGameOfPlayingCards);
         gameOfBlackjack.initializeWithRandomDeck();
         verify(mockedGameOfPlayingCards, times(1)).initiateNewShuffledDeck();
+    }
+
+    @Test
+    public void whenInitializedWithFilePathArgumentLoadedDeckIsCreatedFromFile() throws IOException {
+        GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        DeckOfPlayingCards mockedGameOfPlayingCards = mock(DeckOfPlayingCards.class);
+        gameOfBlackjack.setDeckOfPlayingCards(mockedGameOfPlayingCards);
+        String path = "path";
+        gameOfBlackjack.initializeWithLoadedDeck(path);
+        verify(mockedGameOfPlayingCards, times(1)).initiateNewLoadedDeck(path);
     }
 }
