@@ -10,9 +10,13 @@ public class BlackjackSimulator {
         gameOfBlackjackBuilder = new GameOfBlackjackBuilder();
     }
 
-    public void simulateBlackjackGame(String... args) throws IOException {
+    public void simulateBlackjackGame(String... args) {
         if(args.length > 0) {
-            simulateGameWithImportedDeck(args[0]);
+            try {
+                simulateGameWithImportedDeck(args[0]);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } else {
             simulateGameWithRandomDeck();
         }
