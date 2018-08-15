@@ -23,6 +23,10 @@ public class GameOfBlackjack {
         players.add(theDealer);
     }
 
+    public void initializeWithLoadedDeck(String path) {
+
+    }
+
     public void deal() {
         for(int i = 0; i<2; i++) {
             for(Player player : players) {
