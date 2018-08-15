@@ -12,8 +12,10 @@ public class GameOfBlackjack {
     private DeckOfPlayingCards deckOfPlayingCards;
     private boolean someoneHasBlackjack;
     private Player winner;
+    private boolean initialHandWasDealt;
 
     public GameOfBlackjack() {
+        initialHandWasDealt = false;
         someoneHasBlackjack = false;
         deckOfPlayingCards = new DeckOfPlayingCards();
         deckOfPlayingCards.shuffle();
@@ -56,9 +58,13 @@ public class GameOfBlackjack {
                 }
             }
         }
+        initialHandWasDealt = true;
     }
 
     public void dealCardToPlayer(Player player) {
+        if(!initialHandWasDealt) {
+            throw new IllegalStateException("Cannot draw cards before dealing initial hands!");
+        }
         if(winner != null) {
             throw new IllegalStateException("Cannot deal card when game has been won");
         }

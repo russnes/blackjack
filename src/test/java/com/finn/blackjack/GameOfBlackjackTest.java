@@ -574,4 +574,12 @@ public class GameOfBlackjackTest {
         gameOfBlackjack.initializeWithLoadedDeck(path);
         verify(mockedGameOfPlayingCards, times(1)).initiateNewLoadedDeck(path);
     }
+
+    @Test(expected = IllegalStateException.class)
+    public void initialCardsHaveToBeDealtBeforeDealingIndividualCards() {
+        GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        gameOfBlackjack.initializeWithRandomDeck();
+        Player player = gameOfBlackjack.getPlayers().get(0);
+        gameOfBlackjack.dealCardToPlayer(player);
+    }
 }

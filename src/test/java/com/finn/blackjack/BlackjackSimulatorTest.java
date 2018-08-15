@@ -27,7 +27,7 @@ public class BlackjackSimulatorTest {
     }
 
     @Test
-    public void passingNoArgumentsInitiatesGameWithRandomDeck() {
+    public void passingNoArgumentsInitiatesGameWithRandomDeck() throws IOException {
         GameOfBlackjackBuilder mockedGameOfBlackjackBuilder = mock(GameOfBlackjackBuilder.class);
 
         BlackjackSimulator blackjackSimulator = new BlackjackSimulator();
@@ -38,7 +38,7 @@ public class BlackjackSimulatorTest {
     }
 
     @Test
-    public void afterInitiatingGameCommences() {
+    public void afterInitiatingGameCommences() throws IOException {
         BlackjackSimulationRunner blackjackSimulationRunner = new BlackjackSimulationRunner();
         BlackjackSimulator mockedBlackjackSimulator = mock(BlackjackSimulator.class);
         blackjackSimulationRunner.setBlackjackSimulator(mockedBlackjackSimulator);
