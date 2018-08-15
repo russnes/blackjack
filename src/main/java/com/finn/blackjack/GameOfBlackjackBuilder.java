@@ -10,12 +10,14 @@ public class GameOfBlackjackBuilder {
         gameOfBlackjack = new GameOfBlackjack();
     }
 
-    public void createGameWithParsedDeck(String pathToFile) throws IOException {
+    public GameOfBlackjack createGameWithParsedDeck(String pathToFile) throws IOException {
         gameOfBlackjack.initializeWithLoadedDeck(pathToFile);
+        return gameOfBlackjack;
     }
 
-    public void createGameWithRandomDeck() {
+    public GameOfBlackjack createGameWithRandomDeck() {
         gameOfBlackjack.initializeWithRandomDeck();
+        return gameOfBlackjack;
     }
 
     public void setGameOfBlackjack(GameOfBlackjack gameOfBlackjack) {

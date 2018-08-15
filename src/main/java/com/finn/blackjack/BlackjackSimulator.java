@@ -10,7 +10,7 @@ public class BlackjackSimulator {
         gameOfBlackjackBuilder = new GameOfBlackjackBuilder();
     }
 
-    public void simulateBlackjackGame(String... args) {
+    public void initializeGame(String... args) {
         if(args.length > 0) {
             try {
                 simulateGameWithImportedDeck(args[0]);
@@ -20,6 +20,10 @@ public class BlackjackSimulator {
         } else {
             simulateGameWithRandomDeck();
         }
+    }
+
+    public void playGame() {
+
     }
 
     public void simulateGameWithRandomDeck() {

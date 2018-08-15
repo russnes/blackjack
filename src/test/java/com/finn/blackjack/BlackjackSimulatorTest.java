@@ -21,19 +21,29 @@ public class BlackjackSimulatorTest {
 
         BlackjackSimulator blackjackSimulator = new BlackjackSimulator();
         blackjackSimulator.setGameOfBlackjackBuilder(mockedGameOfBlackjackBuilder);
-        blackjackSimulator.simulateBlackjackGame(pathToFile);
+        blackjackSimulator.initializeGame(pathToFile);
 
         verify(mockedGameOfBlackjackBuilder, times(1)).createGameWithParsedDeck(pathToFile);
     }
 
     @Test
-    public void passingNoArgumentsInitiatesGameWithRandomDeck() throws IOException {
+    public void passingNoArgumentsInitiatesGameWithRandomDeck() {
         GameOfBlackjackBuilder mockedGameOfBlackjackBuilder = mock(GameOfBlackjackBuilder.class);
 
         BlackjackSimulator blackjackSimulator = new BlackjackSimulator();
         blackjackSimulator.setGameOfBlackjackBuilder(mockedGameOfBlackjackBuilder);
-        blackjackSimulator.simulateBlackjackGame();
+        blackjackSimulator.initializeGame();
 
         verify(mockedGameOfBlackjackBuilder, times(1)).createGameWithRandomDeck();
+    }
+
+    @Test
+    public void afterInitiatingGameCommences() {
+        BlackjackSimulationRunner blackjackSimulationRunner = new BlackjackSimulationRunner();
+        BlackjackSimulator mockedBlackjackSimulator = mock(BlackjackSimulator.class);
+        blackjackSimulationRunner.setBlackjackSimulator(mockedBlackjackSimulator);
+        blackjackSimulationRunner.simulateBlackjackGame();
+
+        verify(mockedBlackjackSimulator, times(1)).playGame();
     }
 }

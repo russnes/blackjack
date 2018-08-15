@@ -1,9 +1,7 @@
 package com.finn.blackjack;
 
-import java.io.IOException;
-
 public class Main {
     public static void main(String... args) {
-        new BlackjackSimulator().simulateBlackjackGame(args);
+        new BlackjackSimulationRunner().simulateBlackjackGame(args);
     }
 }
