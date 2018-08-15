@@ -24,7 +24,7 @@ public class GameOfBlackjack {
     }
 
     public void initializeWithRandomDeck() {
-
+        deckOfPlayingCards.initiateNewShuffledDeck();
     }
 
     public void initializeWithLoadedDeck(String path) {
@@ -99,6 +99,10 @@ public class GameOfBlackjack {
 
     public DeckOfPlayingCards getDeckOfPlayingCards() {
         return deckOfPlayingCards;
+    }
+
+    public void setDeckOfPlayingCards(DeckOfPlayingCards deckOfPlayingCards) {
+        this.deckOfPlayingCards = deckOfPlayingCards;
     }
 
     public boolean someoneHasBlackjack() {

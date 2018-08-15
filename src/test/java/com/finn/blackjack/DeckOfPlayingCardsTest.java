@@ -15,20 +15,17 @@ import java.util.List;
 
 public class DeckOfPlayingCardsTest {
 
-    static DeckOfPlayingCards deckOfPlayingCards;
-
-    @BeforeClass
-    public static void init() {
-        deckOfPlayingCards = new DeckOfPlayingCards();
-    }
-
     @Test
     public void deckOfPlayingCardsShallHave52Cards() {
+        DeckOfPlayingCards deckOfPlayingCards = new DeckOfPlayingCards();
+        deckOfPlayingCards.initiateNewShuffledDeck();
         Assert.assertEquals(52, deckOfPlayingCards.getPlayingCardsInDeck().size() + deckOfPlayingCards.getDealtPlayingCards().size());
     }
 
     @Test
     public void eachPlayingCardInDeckIsUnique() {
+        DeckOfPlayingCards deckOfPlayingCards = new DeckOfPlayingCards();
+        deckOfPlayingCards.initiateNewShuffledDeck();
         List<PlayingCard> playingCardsToCheck = new ArrayList<>();
         playingCardsToCheck.addAll(deckOfPlayingCards.getPlayingCardsInDeck());
         Iterator<PlayingCard> playingCardIterator = playingCardsToCheck.iterator();
@@ -45,6 +42,8 @@ public class DeckOfPlayingCardsTest {
 
     @Test
     public void cardsAreInRandomOrderAfterShuffling() {
+        DeckOfPlayingCards deckOfPlayingCards = new DeckOfPlayingCards();
+        deckOfPlayingCards.initiateNewShuffledDeck();
         List<PlayingCard> orderOfCardsBeforeShuffling = new ArrayList<>();
         orderOfCardsBeforeShuffling.addAll(deckOfPlayingCards.getPlayingCardsInDeck());
 
@@ -62,6 +61,7 @@ public class DeckOfPlayingCardsTest {
     @Test
     public void dealtCardsAreRemovedFromTheTopOfTheDeck() {
         DeckOfPlayingCards deckOfPlayingCards = new DeckOfPlayingCards();
+        deckOfPlayingCards.initiateNewShuffledDeck();
         deckOfPlayingCards.shuffle();
         PlayingCard dealtCard = deckOfPlayingCards.dealPlayingCard();
         PlayingCard anotherDealtCard = deckOfPlayingCards.dealPlayingCard();

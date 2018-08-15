@@ -20,11 +20,6 @@ public class DeckOfPlayingCards {
         this.shuffled = false;
         playingCardsInDeck = new ArrayList<>();
         dealtPlayingCards = new ArrayList<>();
-        for(PlayingCard.Suite suite : PlayingCard.Suite.values()) {
-            for(int i = 1; i<14; i++) {
-                playingCardsInDeck.add(new PlayingCard(i, suite));
-            }
-        }
     }
 
     public DeckOfPlayingCards(String pathToFile) throws IOException {
@@ -38,6 +33,17 @@ public class DeckOfPlayingCards {
             PlayingCard playingCard = new PlayingCard(card);
             playingCardsInDeck.add(playingCard);
         }
+    }
+
+    public void initiateNewShuffledDeck() {
+        playingCardsInDeck.clear();
+        dealtPlayingCards.clear();
+        for(PlayingCard.Suite suite : PlayingCard.Suite.values()) {
+            for(int i = 1; i<14; i++) {
+                playingCardsInDeck.add(new PlayingCard(i, suite));
+            }
+        }
+        shuffle();
     }
 
     public List<PlayingCard> getPlayingCardsInDeck() {

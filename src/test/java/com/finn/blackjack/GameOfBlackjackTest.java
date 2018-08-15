@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
 public class GameOfBlackjackTest {
 
     static GameOfBlackjack gameOfBlackjack;
@@ -39,6 +43,7 @@ public class GameOfBlackjackTest {
     @Test
     public void playersAreDealtTwoCardsInitially() {
         GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        gameOfBlackjack.initializeWithRandomDeck();
         gameOfBlackjack.deal();
 
         Assert.assertEquals(2, gameOfBlackjack.getPlayers().get(0).getPlayingCards().size());
@@ -48,6 +53,7 @@ public class GameOfBlackjackTest {
     @Test
     public void cardsInPlayersHandsAreFromTheGameDeck() {
         GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        gameOfBlackjack.initializeWithRandomDeck();
         gameOfBlackjack.deal();
 
         for(Player player : gameOfBlackjack.getPlayers()) {
@@ -61,6 +67,7 @@ public class GameOfBlackjackTest {
     @Test
     public void cardsAreDealtInitiallyInAlternatingOrder() {
         GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        gameOfBlackjack.initializeWithRandomDeck();
         List<PlayingCard> originallyOrderedPlayingCards = new ArrayList<>();
         for(int i = 0; i<4; i++) {
             originallyOrderedPlayingCards.add(gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().get(i));
@@ -79,6 +86,7 @@ public class GameOfBlackjackTest {
     @Test
     public void samIsDealtTheFirstCard() {
         GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        gameOfBlackjack.initializeWithRandomDeck();
         PlayingCard firstPlayingCard = gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().get(0);
         gameOfBlackjack.deal();
         for(Player player : gameOfBlackjack.getPlayers()) {
@@ -91,7 +99,7 @@ public class GameOfBlackjackTest {
     @Test
     public void gameIdentifiesBlackjackIfFirstPlayerHasInitialHandOf21() {
         GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
-        Iterator<PlayingCard> playingCardIterator = gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().iterator();
+        gameOfBlackjack.initializeWithRandomDeck();
         PlayingCard ace = null;
         PlayingCard ten = null;
         for(PlayingCard playingCard : gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck()) {
@@ -120,6 +128,7 @@ public class GameOfBlackjackTest {
     @Test
     public void gameIdentifiesBlackjackIfSecondPlayerHasInitialHandOf21() {
         GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        gameOfBlackjack.initializeWithRandomDeck();
         PlayingCard ace = null;
         PlayingCard ten = null;
         for(PlayingCard playingCard : gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck()) {
@@ -148,6 +157,7 @@ public class GameOfBlackjackTest {
     @Test
     public void playerWithInitial21WinsTheGame() {
         GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        gameOfBlackjack.initializeWithRandomDeck();
         PlayingCard ace = null;
         PlayingCard ten = null;
         for(PlayingCard playingCard : gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck()) {
@@ -177,6 +187,7 @@ public class GameOfBlackjackTest {
     @Test
     public void samWinsWhenBothPlayersHaveBlackjack() {
         GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        gameOfBlackjack.initializeWithRandomDeck();
         PlayingCard ace0 = null;
         PlayingCard ten0 = null;
         PlayingCard ace1 = null;
@@ -220,6 +231,7 @@ public class GameOfBlackjackTest {
     @Test
     public void dealerWinsWhenBothHave22Initially() {
         GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        gameOfBlackjack.initializeWithRandomDeck();
         List<PlayingCard> aces = new ArrayList<>();
         for(PlayingCard playingCard : gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck()) {
             if(playingCard.getPointValue() == 11) {
@@ -243,6 +255,7 @@ public class GameOfBlackjackTest {
     @Test
     public void samCanDrawCardsWhenNeitherPlayerHasBlackjack() {
         GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        gameOfBlackjack.initializeWithRandomDeck();
         List<PlayingCard> sevens = new ArrayList<>();
         for(PlayingCard playingCard : gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck()) {
             if(playingCard.getPointValue() == 7) {
@@ -268,6 +281,7 @@ public class GameOfBlackjackTest {
     @Test
     public void cardIsAddedToSamsHandWhenDealt() {
         GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        gameOfBlackjack.initializeWithRandomDeck();
         List<PlayingCard> sevens = new ArrayList<>();
         for(PlayingCard playingCard : gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck()) {
             if(playingCard.getPointValue() == 7) {
@@ -295,6 +309,7 @@ public class GameOfBlackjackTest {
     @Test(expected = IllegalStateException.class)
     public void samCannotDrawIfHisHandScoreIsGreaterThan17() {
         GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        gameOfBlackjack.initializeWithRandomDeck();
         List<PlayingCard> tens = new ArrayList<>();
         for(PlayingCard playingCard : gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck()) {
             if(playingCard.getPointValue() == 10) {
@@ -320,6 +335,7 @@ public class GameOfBlackjackTest {
     @Test(expected = IllegalStateException.class)
     public void samCannotDrawIfHisHandScoreIsExactly17() {
         GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        gameOfBlackjack.initializeWithRandomDeck();
         List<PlayingCard> tens = new ArrayList<>();
         PlayingCard seven = null;
         for(PlayingCard playingCard : gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck()) {
@@ -350,6 +366,7 @@ public class GameOfBlackjackTest {
     @Test
     public void samLosesTheGameIfHeExceeds21() {
         GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        gameOfBlackjack.initializeWithRandomDeck();
         List<PlayingCard> sevens = new ArrayList<>();
         PlayingCard nine = null;
         for(PlayingCard playingCard : gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck()) {
@@ -383,6 +400,7 @@ public class GameOfBlackjackTest {
     @Test(expected = IllegalStateException.class)
     public void cardsCannotBeDrawnWhenGameHasBeenWon() {
         GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        gameOfBlackjack.initializeWithRandomDeck();
         PlayingCard ace = null;
         PlayingCard ten = null;
         for(PlayingCard playingCard : gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck()) {
@@ -419,6 +437,7 @@ public class GameOfBlackjackTest {
     @Test(expected = IllegalStateException.class)
     public void theDealerCannotDrawCardsBeforeSamHasStoppedDrawingCards() {
         GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        gameOfBlackjack.initializeWithRandomDeck();
         List<PlayingCard> sevens = new ArrayList<>();
         for(PlayingCard playingCard : gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck()) {
             if(playingCard.getPointValue() == 7) {
@@ -444,6 +463,7 @@ public class GameOfBlackjackTest {
     @Test(expected = IllegalStateException.class)
     public void theDealerMustStopDrawingOnceTheirTotalIsHigherThanSam() {
         GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        gameOfBlackjack.initializeWithRandomDeck();
         List<PlayingCard> sevens = new ArrayList<>();
         PlayingCard three = null;
         PlayingCard four = null;
@@ -490,6 +510,7 @@ public class GameOfBlackjackTest {
     @Test
     public void dealerWinsIfStoppingBeforeBreaking() {
         GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        gameOfBlackjack.initializeWithRandomDeck();
         List<PlayingCard> sevens = new ArrayList<>();
         PlayingCard three = null;
         PlayingCard four = null;
@@ -532,5 +553,14 @@ public class GameOfBlackjackTest {
         gameOfBlackjack.dealCardToPlayer(theDealer);
 
         Assert.assertEquals(theDealer, gameOfBlackjack.getWinner());
+    }
+
+    @Test
+    public void whenInitializedForRandomDeckNewRandomDeckIsCreated() {
+        GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        DeckOfPlayingCards mockedGameOfPlayingCards = mock(DeckOfPlayingCards.class);
+        gameOfBlackjack.setDeckOfPlayingCards(mockedGameOfPlayingCards);
+        gameOfBlackjack.initializeWithRandomDeck();
+        verify(mockedGameOfPlayingCards, times(1)).initiateNewShuffledDeck();
     }
 }
