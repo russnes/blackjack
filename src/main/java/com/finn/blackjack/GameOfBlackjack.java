@@ -48,9 +48,7 @@ public class GameOfBlackjack {
                 if(winner == null) {
                     winner = player;
                 }
-            }
-
-            if(player.getScoreOfHand() == 22) {
+            } else if(player.getScoreOfHand() == 22) {
                 if(had22) {
                     winner = player;
                 } else {
@@ -58,6 +56,13 @@ public class GameOfBlackjack {
                 }
             }
         }
+
+        if(winner == null) {
+            if (sam.getScoreOfHand() >= 17 && theDealer.getScoreOfHand() > sam.getScoreOfHand()) {
+                winner = theDealer;
+            }
+        }
+
         initialHandWasDealt = true;
     }
 
@@ -84,7 +89,8 @@ public class GameOfBlackjack {
             if(sam.getScoreOfHand() < 17) {
                 throw new IllegalStateException("Dealer cannot draw before Sam has finished drawing");
             } else if(player.getScoreOfHand()>sam.getScoreOfHand()) {
-                throw new IllegalStateException("Dealer must stop drawing after reaching higher score than Sam");
+                throw new IllegalStateException("Dealer must stop drawing after reaching higher score than Sam "
+                        + theDealer.getScoreOfHand() + '/' + sam.getScoreOfHand());
             }
         }
 
@@ -93,6 +99,10 @@ public class GameOfBlackjack {
             loseGameForPlayer(player);
         } else if(theDealer.equals(player)) {
             if(player.getScoreOfHand() > sam.getScoreOfHand()) {
+                loseGameForPlayer(sam);
+            }
+        } else if(sam.equals(player)) {
+            if(sam.getScoreOfHand() >= 17 && theDealer.getScoreOfHand() > sam.getScoreOfHand()) {
                 loseGameForPlayer(sam);
             }
         }

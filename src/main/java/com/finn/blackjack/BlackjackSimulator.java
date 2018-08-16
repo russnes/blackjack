@@ -29,6 +29,8 @@ public class BlackjackSimulator {
         logger.print(gameOfBlackjack.getWinner().getName());
         logger.print(gameOfBlackjack.getSam().getName() + ": " + gameOfBlackjack.getSam().getHandString());
         logger.print(gameOfBlackjack.getTheDealer().getName() + ": " + gameOfBlackjack.getTheDealer().getHandString());
+        System.out.println(gameOfBlackjack.getSam().getScoreOfHand());
+        System.out.println(gameOfBlackjack.getTheDealer().getScoreOfHand());
     }
 
     public GameOfBlackjack createGameWithRandomDeck() {

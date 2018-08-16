@@ -4,14 +4,12 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 public class GameOfBlackjackTest {
 
@@ -581,5 +579,30 @@ public class GameOfBlackjackTest {
         gameOfBlackjack.initializeWithRandomDeck();
         Player player = gameOfBlackjack.getPlayers().get(0);
         gameOfBlackjack.dealCardToPlayer(player);
+    }
+
+    @Test
+    public void ifSamStartsWith17AndTheDealerStartsWithAHigherValidScoreTheDealerWins() throws IOException {
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = new File(classLoader.getResource("decks/sam_starts_17_dealer_starts_18").getFile());
+        String pathToFile = file.getAbsolutePath();
+        GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        gameOfBlackjack.initializeWithLoadedDeck(pathToFile);
+        gameOfBlackjack.deal();
+        Player winner = gameOfBlackjack.getWinner();
+        Assert.assertEquals(winner, gameOfBlackjack.getTheDealer());
+    }
+
+    @Test
+    public void ifSamStopsDrawingWhileTheDealerHasHigherTheDealerWins() throws IOException {
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = new File(classLoader.getResource("decks/sam_stops_17_dealer_starts_20").getFile());
+        String pathToFile = file.getAbsolutePath();
+        GameOfBlackjack gameOfBlackjack = new GameOfBlackjack();
+        gameOfBlackjack.initializeWithLoadedDeck(pathToFile);
+        gameOfBlackjack.deal();
+        gameOfBlackjack.dealNextCard();
+        Player winner = gameOfBlackjack.getWinner();
+        Assert.assertEquals(winner, gameOfBlackjack.getTheDealer());
     }
 }
