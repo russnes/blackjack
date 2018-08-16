@@ -22,7 +22,17 @@ public class Player {
     }
 
     public String getHandString() {
-        return null;
+        StringBuilder stringBuilderSingleCard = new StringBuilder();
+        StringBuilder stringBuilderFullHand = new StringBuilder();
+        for(int i = 0; i<playingCards.size(); i++) {
+            PlayingCard playingCard = playingCards.get(i);
+            stringBuilderFullHand.append(playingCard.getTextRepresentationOfCard(stringBuilderSingleCard));
+            if(i<playingCards.size()-1) {
+                stringBuilderFullHand.append(", ");
+            }
+            stringBuilderSingleCard.setLength(0);
+        }
+        return stringBuilderFullHand.toString();
     }
 
     public String getName() {
