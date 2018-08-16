@@ -2,6 +2,7 @@ package com.finn.blackjack;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.InOrder;
 import org.mockito.Mockito;
 
 import java.io.ByteArrayOutputStream;
@@ -121,5 +122,20 @@ public class BlackjackSimulatorTest {
         String theDealersHand = theDealer.getHandString();
         String messageWithPlayerName = theDealer.getName() + ": " + theDealersHand;
         verify(mockedLogger, times(1)).print(messageWithPlayerName);
+    }
+
+    @Test
+    public void nameOfWinnerIsPrintedBeforeSamsHand() throws IOException {
+        BlackjackSimulationRunner blackjackSimulationRunner = new BlackjackSimulationRunner();
+        Logger mockedLogger = mock(Logger.class);
+        blackjackSimulationRunner.getBlackjackSimulator().setLogger(mockedLogger);
+        blackjackSimulationRunner.simulateBlackjackGame();
+        Player sam = blackjackSimulationRunner.getBlackjackSimulator().getGameOfBlackjack().getSam();
+        String samsHand = sam.getHandString();
+        String messageWithPlayerName = sam.getName() + ": " + samsHand;
+
+        InOrder inOrder = inOrder(mockedLogger);
+        inOrder.verify(mockedLogger).print(blackjackSimulationRunner.getBlackjackSimulator().getGameOfBlackjack().getWinner().getName());
+        inOrder.verify(mockedLogger).print(messageWithPlayerName);
     }
 }
