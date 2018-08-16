@@ -43,7 +43,6 @@ public class GameOfBlackjack {
             }
         }
 
-        boolean had22 = false;
         for(Player player : players) {
             if(player.getScoreOfHand() == 21) {
                 someoneHasBlackjack = true;
@@ -51,10 +50,12 @@ public class GameOfBlackjack {
                     winner = player;
                 }
             } else if(player.getScoreOfHand() == 22) {
-                if(had22) {
-                    winner = player;
+                if(player.equals(sam)) {
+                    winner = theDealer;
                 } else {
-                    had22 = true;
+                    if(winner == null) {
+                        winner = sam;
+                    }
                 }
             }
         }
