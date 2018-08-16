@@ -6,6 +6,8 @@ import java.util.List;
 
 public class GameOfBlackjack {
 
+    public static final String NAME_SAM = "sam";
+    public static final String NAME_DEALER = "dealer";
     private Player sam;
     private Player theDealer;
     private final List<Player> players;
@@ -19,8 +21,8 @@ public class GameOfBlackjack {
         someoneHasBlackjack = false;
         deckOfPlayingCards = new DeckOfPlayingCards();
         deckOfPlayingCards.shuffle();
-        sam = new Player("Sam");
-        theDealer = new Player("the Dealer");
+        sam = new Player(NAME_SAM);
+        theDealer = new Player(NAME_DEALER);
         players = new ArrayList<>();
         players.add(sam);
         players.add(theDealer);

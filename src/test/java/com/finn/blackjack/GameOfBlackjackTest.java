@@ -30,9 +30,9 @@ public class GameOfBlackjackTest {
         boolean samExisted = false;
         boolean theDealerExisted = false;
         for(Player player : gameOfBlackjack.getPlayers()) {
-            if("Sam".equals(player.getName())) {
+            if(GameOfBlackjack.NAME_SAM.equals(player.getName())) {
                 samExisted = true;
-            } else if("the Dealer".equals(player.getName())) {
+            } else if(GameOfBlackjack.NAME_DEALER.equals(player.getName())) {
                 theDealerExisted = true;
             }
         }
@@ -217,12 +217,7 @@ public class GameOfBlackjackTest {
         gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().add(3, ten0);
 
         gameOfBlackjack.deal();
-        Player sam = null;
-        for(Player player : gameOfBlackjack.getPlayers()) {
-            if("Sam".equals(player.getName())) {
-                sam = player;
-            }
-        }
+        Player sam = gameOfBlackjack.getSam();
 
         Assert.assertEquals(sam, gameOfBlackjack.getWinner());
     }
@@ -241,12 +236,7 @@ public class GameOfBlackjackTest {
         gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().addAll(0, aces);
         gameOfBlackjack.deal();
 
-        Player theDealer = null;
-        for(Player player : gameOfBlackjack.getPlayers()) {
-            if("the Dealer".equals(player.getName())) {
-                theDealer = player;
-            }
-        }
+        Player theDealer = gameOfBlackjack.getTheDealer();
 
         Assert.assertEquals(theDealer, gameOfBlackjack.getWinner());
     }
@@ -267,12 +257,7 @@ public class GameOfBlackjackTest {
         gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().addAll(0, sevens);
         gameOfBlackjack.deal();
 
-        Player sam = null;
-        for(Player player : gameOfBlackjack.getPlayers()) {
-            if("Sam".equals(player.getName())) {
-                sam = player;
-            }
-        }
+        Player sam = gameOfBlackjack.getSam();
 
         gameOfBlackjack.dealCardToPlayer(sam);
     }
@@ -293,12 +278,7 @@ public class GameOfBlackjackTest {
         gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().addAll(0, sevens);
         gameOfBlackjack.deal();
 
-        Player sam = null;
-        for(Player player : gameOfBlackjack.getPlayers()) {
-            if("Sam".equals(player.getName())) {
-                sam = player;
-            }
-        }
+        Player sam = gameOfBlackjack.getSam();
 
         PlayingCard currentNextPlayingCard = gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().get(0);
         gameOfBlackjack.dealCardToPlayer(sam);
@@ -321,12 +301,7 @@ public class GameOfBlackjackTest {
         gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().addAll(0, tens);
         gameOfBlackjack.deal();
 
-        Player sam = null;
-        for(Player player : gameOfBlackjack.getPlayers()) {
-            if("Sam".equals(player.getName())) {
-                sam = player;
-            }
-        }
+        Player sam = gameOfBlackjack.getSam();
 
         gameOfBlackjack.dealCardToPlayer(sam);
     }
@@ -352,12 +327,7 @@ public class GameOfBlackjackTest {
         gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().add(0, seven);
         gameOfBlackjack.deal();
 
-        Player sam = null;
-        for(Player player : gameOfBlackjack.getPlayers()) {
-            if("Sam".equals(player.getName())) {
-                sam = player;
-            }
-        }
+        Player sam = gameOfBlackjack.getSam();
 
         gameOfBlackjack.dealCardToPlayer(sam);
     }
@@ -384,12 +354,7 @@ public class GameOfBlackjackTest {
         gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().add(4, nine);
         gameOfBlackjack.deal();
 
-        Player sam = null;
-        for(Player player : gameOfBlackjack.getPlayers()) {
-            if("Sam".equals(player.getName())) {
-                sam = player;
-            }
-        }
+        Player sam = gameOfBlackjack.getSam();
 
         gameOfBlackjack.dealCardToPlayer(sam);
 
@@ -423,12 +388,7 @@ public class GameOfBlackjackTest {
 
         gameOfBlackjack.deal();
 
-        Player sam = null;
-        for(Player player : gameOfBlackjack.getPlayers()) {
-            if("Sam".equals(player.getName())) {
-                sam = player;
-            }
-        }
+        Player sam = gameOfBlackjack.getSam();
 
         gameOfBlackjack.dealCardToPlayer(sam);
     }
@@ -449,12 +409,7 @@ public class GameOfBlackjackTest {
         gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().addAll(0, sevens);
         gameOfBlackjack.deal();
 
-        Player theDealer = null;
-        for(Player player : gameOfBlackjack.getPlayers()) {
-            if("the Dealer".equals(player.getName())) {
-                theDealer = player;
-            }
-        }
+        Player theDealer = gameOfBlackjack.getTheDealer();
 
         gameOfBlackjack.dealCardToPlayer(theDealer);
     }
@@ -486,21 +441,11 @@ public class GameOfBlackjackTest {
         gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().add(5, four);
         gameOfBlackjack.deal();
 
-        Player sam = null;
-        for(Player player : gameOfBlackjack.getPlayers()) {
-            if("Sam".equals(player.getName())) {
-                sam = player;
-            }
-        }
+        Player sam = gameOfBlackjack.getSam();
 
         gameOfBlackjack.dealCardToPlayer(sam);
 
-        Player theDealer = null;
-        for(Player player : gameOfBlackjack.getPlayers()) {
-            if("the Dealer".equals(player.getName())) {
-                theDealer = player;
-            }
-        }
+        Player theDealer = gameOfBlackjack.getTheDealer();
 
         gameOfBlackjack.dealCardToPlayer(theDealer);
         gameOfBlackjack.dealCardToPlayer(theDealer);
@@ -533,21 +478,11 @@ public class GameOfBlackjackTest {
         gameOfBlackjack.getDeckOfPlayingCards().getPlayingCardsInDeck().add(5, four);
         gameOfBlackjack.deal();
 
-        Player sam = null;
-        for(Player player : gameOfBlackjack.getPlayers()) {
-            if("Sam".equals(player.getName())) {
-                sam = player;
-            }
-        }
+        Player sam = gameOfBlackjack.getSam();
 
         gameOfBlackjack.dealCardToPlayer(sam);
 
-        Player theDealer = null;
-        for(Player player : gameOfBlackjack.getPlayers()) {
-            if("the Dealer".equals(player.getName())) {
-                theDealer = player;
-            }
-        }
+        Player theDealer = gameOfBlackjack.getTheDealer();
 
         gameOfBlackjack.dealCardToPlayer(theDealer);
 
