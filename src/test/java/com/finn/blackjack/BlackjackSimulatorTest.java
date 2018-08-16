@@ -4,8 +4,10 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -85,5 +87,15 @@ public class BlackjackSimulatorTest {
         Assert.assertEquals(winner, blackjackSimulationRunner.getBlackjackSimulator().getGameOfBlackjack().getTheDealer());
         Assert.assertTrue(blackjackSimulationRunner.getBlackjackSimulator().getGameOfBlackjack().getTheDealer().getScoreOfHand()<21);
         Assert.assertTrue(blackjackSimulationRunner.getBlackjackSimulator().getGameOfBlackjack().getSam().getScoreOfHand()>21);
+    }
+
+    @Test
+    public void whenGameIsFinishedTheNameOfTheWinnerIsPrinted() throws IOException {
+        BlackjackSimulationRunner blackjackSimulationRunner = new BlackjackSimulationRunner();
+        Logger mockedLogger = mock(Logger.class);
+        blackjackSimulationRunner.getBlackjackSimulator().setLogger(mockedLogger);
+        blackjackSimulationRunner.simulateBlackjackGame();
+        Player winner = blackjackSimulationRunner.getBlackjackSimulator().getGameOfBlackjack().getWinner();
+        verify(mockedLogger, times(1)).print(winner.getName());
     }
 }

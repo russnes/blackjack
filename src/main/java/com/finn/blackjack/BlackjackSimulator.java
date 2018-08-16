@@ -6,8 +6,10 @@ public class BlackjackSimulator {
 
     private GameOfBlackjackBuilder gameOfBlackjackBuilder;
     private GameOfBlackjack gameOfBlackjack;
+    private Logger logger;
 
     public BlackjackSimulator() {
+        logger = new Logger();
         gameOfBlackjackBuilder = new GameOfBlackjackBuilder();
     }
 
@@ -24,6 +26,7 @@ public class BlackjackSimulator {
         while (gameOfBlackjack.getWinner() == null) {
             gameOfBlackjack.dealNextCard();
         }
+        logger.print(gameOfBlackjack.getWinner().getName());
     }
 
     public GameOfBlackjack createGameWithRandomDeck() {
@@ -44,5 +47,9 @@ public class BlackjackSimulator {
 
     public GameOfBlackjack getGameOfBlackjack() {
         return gameOfBlackjack;
+    }
+
+    public void setLogger(Logger logger) {
+        this.logger = logger;
     }
 }
