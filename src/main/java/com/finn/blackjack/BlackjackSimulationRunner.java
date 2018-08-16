@@ -18,4 +18,8 @@ public class BlackjackSimulationRunner {
     public void setBlackjackSimulator(BlackjackSimulator blackjackSimulator) {
         this.blackjackSimulator = blackjackSimulator;
     }
+
+    public BlackjackSimulator getBlackjackSimulator() {
+        return blackjackSimulator;
+    }
 }

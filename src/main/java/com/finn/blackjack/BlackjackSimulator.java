@@ -4,8 +4,8 @@ import java.io.IOException;
 
 public class BlackjackSimulator {
 
-    public GameOfBlackjackBuilder gameOfBlackjackBuilder;
-    public GameOfBlackjack gameOfBlackjack;
+    private GameOfBlackjackBuilder gameOfBlackjackBuilder;
+    private GameOfBlackjack gameOfBlackjack;
 
     public BlackjackSimulator() {
         gameOfBlackjackBuilder = new GameOfBlackjackBuilder();
@@ -21,6 +21,9 @@ public class BlackjackSimulator {
 
     public void playGame() {
         gameOfBlackjack.deal();
+        while (gameOfBlackjack.getWinner() == null) {
+            gameOfBlackjack.dealNextCard();
+        }
     }
 
     public GameOfBlackjack createGameWithRandomDeck() {
@@ -37,5 +40,9 @@ public class BlackjackSimulator {
 
     public void setGameOfBlackjack(GameOfBlackjack gameOfBlackjack) {
         this.gameOfBlackjack = gameOfBlackjack;
+    }
+
+    public GameOfBlackjack getGameOfBlackjack() {
+        return gameOfBlackjack;
     }
 }

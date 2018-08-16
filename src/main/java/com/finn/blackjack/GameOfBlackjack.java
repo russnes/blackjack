@@ -61,6 +61,14 @@ public class GameOfBlackjack {
         initialHandWasDealt = true;
     }
 
+    public void dealNextCard() {
+        if(sam.getScoreOfHand()<17) {
+            dealCardToPlayer(sam);
+        } else {
+            dealCardToPlayer(theDealer);
+        }
+    }
+
     public void dealCardToPlayer(Player player) {
         if(!initialHandWasDealt) {
             throw new IllegalStateException("Cannot draw cards before dealing initial hands!");
@@ -83,9 +91,7 @@ public class GameOfBlackjack {
         player.getPlayingCards().add(deckOfPlayingCards.dealPlayingCard());
         if(player.getScoreOfHand() > 21) {
             loseGameForPlayer(player);
-        }
-
-        if(theDealer.equals(player)) {
+        } else if(theDealer.equals(player)) {
             if(player.getScoreOfHand() > sam.getScoreOfHand()) {
                 loseGameForPlayer(sam);
             }
@@ -118,5 +124,13 @@ public class GameOfBlackjack {
 
     public Player getWinner() {
         return winner;
+    }
+
+    public Player getSam() {
+        return sam;
+    }
+
+    public Player getTheDealer() {
+        return theDealer;
     }
 }

@@ -71,7 +71,7 @@ public class DeckOfPlayingCardsTest {
     @Test
     public void cardsParsedFromFileAppearInTheProvidedOrder() throws IOException {
         ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource("example_deck").getFile());
+        File file = new File(classLoader.getResource("decks/example_deck").getFile());
         String pathToFile = file.getAbsolutePath();
         byte[] bytes = new byte[0];
         try {

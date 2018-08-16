@@ -6,6 +6,7 @@ import org.mockito.Mockito;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import static org.mockito.Mockito.*;
 
@@ -14,7 +15,7 @@ public class BlackjackSimulatorTest {
     @Test
     public void passingArgumentPathInitiatesGameWithParsedDeck() throws IOException {
         ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource("example_deck").getFile());
+        File file = new File(classLoader.getResource("decks/example_deck").getFile());
         String pathToFile = file.getAbsolutePath();
 
         GameOfBlackjackBuilder mockedGameOfBlackjackBuilder = mock(GameOfBlackjackBuilder.class);
@@ -45,5 +46,17 @@ public class BlackjackSimulatorTest {
         blackjackSimulationRunner.simulateBlackjackGame();
 
         verify(mockedBlackjackSimulator, times(1)).playGame();
+    }
+
+    @Test
+    public void gameIsPlayedUntilDealerBreaks() throws IOException {
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = new File(classLoader.getResource("decks/dealer_breaks").getFile());
+        String pathToFile = file.getAbsolutePath();
+        BlackjackSimulationRunner blackjackSimulationRunner = new BlackjackSimulationRunner();
+        blackjackSimulationRunner.simulateBlackjackGame(pathToFile);
+        Player winner = blackjackSimulationRunner.getBlackjackSimulator().getGameOfBlackjack().getWinner();
+        Assert.assertEquals(winner, blackjackSimulationRunner.getBlackjackSimulator().getGameOfBlackjack().getSam());
+        Assert.assertTrue(blackjackSimulationRunner.getBlackjackSimulator().getGameOfBlackjack().getTheDealer().getScoreOfHand()>21);
     }
 }
