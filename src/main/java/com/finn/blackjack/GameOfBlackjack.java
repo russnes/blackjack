@@ -36,13 +36,20 @@ public class GameOfBlackjack {
         deckOfPlayingCards.initiateNewLoadedDeck(path);
     }
 
+    /**
+     * Deals initial hands of two cards to each player
+     */
     public void deal() {
         for(int i = 0; i<2; i++) {
             for(Player player : players) {
                 player.getPlayingCards().add(deckOfPlayingCards.dealPlayingCard());
             }
         }
+        determineInitialHandResults();
+        initialHandWasDealt = true;
+    }
 
+    private void determineInitialHandResults() {
         for(Player player : players) {
             if(player.getScoreOfHand() == 21) {
                 someoneHasBlackjack = true;
@@ -65,8 +72,6 @@ public class GameOfBlackjack {
                 winner = theDealer;
             }
         }
-
-        initialHandWasDealt = true;
     }
 
     public void dealNextCard() {
