@@ -43,10 +43,6 @@ public class BlackjackSimulator {
         this.gameOfBlackjackBuilder = gameOfBlackjackBuilder;
     }
 
-    public void setGameOfBlackjack(GameOfBlackjack gameOfBlackjack) {
-        this.gameOfBlackjack = gameOfBlackjack;
-    }
-
     public GameOfBlackjack getGameOfBlackjack() {
         return gameOfBlackjack;
     }
