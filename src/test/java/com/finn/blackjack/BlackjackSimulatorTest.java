@@ -110,4 +110,16 @@ public class BlackjackSimulatorTest {
         String messageWithPlayerName = sam.getName() + ": " + samsHand;
         verify(mockedLogger, times(1)).print(messageWithPlayerName);
     }
+
+    @Test
+    public void whenGameIsFinishedTheDealersHandIsPrinted() throws IOException {
+        BlackjackSimulationRunner blackjackSimulationRunner = new BlackjackSimulationRunner();
+        Logger mockedLogger = mock(Logger.class);
+        blackjackSimulationRunner.getBlackjackSimulator().setLogger(mockedLogger);
+        blackjackSimulationRunner.simulateBlackjackGame();
+        Player theDealer = blackjackSimulationRunner.getBlackjackSimulator().getGameOfBlackjack().getTheDealer();
+        String theDealersHand = theDealer.getHandString();
+        String messageWithPlayerName = theDealer.getName() + ": " + theDealersHand;
+        verify(mockedLogger, times(1)).print(messageWithPlayerName);
+    }
 }

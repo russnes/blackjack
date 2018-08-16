@@ -26,6 +26,7 @@ public class BlackjackSimulator {
         while (gameOfBlackjack.getWinner() == null) {
             gameOfBlackjack.dealNextCard();
         }
+        logger.print(gameOfBlackjack.getTheDealer().getName() + ": " + gameOfBlackjack.getTheDealer().getHandString());
         logger.print(gameOfBlackjack.getSam().getName() + ": " + gameOfBlackjack.getSam().getHandString());
         logger.print(gameOfBlackjack.getWinner().getName());
     }
