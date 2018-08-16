@@ -59,4 +59,18 @@ public class BlackjackSimulatorTest {
         Assert.assertEquals(winner, blackjackSimulationRunner.getBlackjackSimulator().getGameOfBlackjack().getSam());
         Assert.assertTrue(blackjackSimulationRunner.getBlackjackSimulator().getGameOfBlackjack().getTheDealer().getScoreOfHand()>21);
     }
+
+    @Test
+    public void gameIsPlayedUntilDealerWinsByDrawing() throws IOException {
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = new File(classLoader.getResource("decks/dealer_wins_by_drawing").getFile());
+        String pathToFile = file.getAbsolutePath();
+        BlackjackSimulationRunner blackjackSimulationRunner = new BlackjackSimulationRunner();
+        blackjackSimulationRunner.simulateBlackjackGame(pathToFile);
+        Player winner = blackjackSimulationRunner.getBlackjackSimulator().getGameOfBlackjack().getWinner();
+        Assert.assertEquals(winner, blackjackSimulationRunner.getBlackjackSimulator().getGameOfBlackjack().getTheDealer());
+        Assert.assertTrue(blackjackSimulationRunner.getBlackjackSimulator().getGameOfBlackjack().getTheDealer().getScoreOfHand()<=21);
+        Assert.assertTrue(blackjackSimulationRunner.getBlackjackSimulator().getGameOfBlackjack().getTheDealer().getScoreOfHand()>
+            blackjackSimulationRunner.getBlackjackSimulator().getGameOfBlackjack().getSam().getScoreOfHand());
+    }
 }
