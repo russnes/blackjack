@@ -107,6 +107,7 @@ public class BlackjackSimulatorTest {
         blackjackSimulationRunner.simulateBlackjackGame();
         Player sam = blackjackSimulationRunner.getBlackjackSimulator().getGameOfBlackjack().getSam();
         String samsHand = sam.getHandString();
-        verify(mockedLogger, times(1)).print(samsHand);
+        String messageWithPlayerName = sam.getName() + ": " + samsHand;
+        verify(mockedLogger, times(1)).print(messageWithPlayerName);
     }
 }
