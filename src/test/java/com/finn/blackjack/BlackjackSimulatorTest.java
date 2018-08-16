@@ -138,4 +138,23 @@ public class BlackjackSimulatorTest {
         inOrder.verify(mockedLogger).print(blackjackSimulationRunner.getBlackjackSimulator().getGameOfBlackjack().getWinner().getName());
         inOrder.verify(mockedLogger).print(messageWithPlayerName);
     }
+
+    @Test
+    public void samsHandIsPrintedBeforeDealersHand() throws IOException {
+        BlackjackSimulationRunner blackjackSimulationRunner = new BlackjackSimulationRunner();
+        Logger mockedLogger = mock(Logger.class);
+        blackjackSimulationRunner.getBlackjackSimulator().setLogger(mockedLogger);
+        blackjackSimulationRunner.simulateBlackjackGame();
+        Player sam = blackjackSimulationRunner.getBlackjackSimulator().getGameOfBlackjack().getSam();
+        String samsHand = sam.getHandString();
+        String messageWithSamsName = sam.getName() + ": " + samsHand;
+
+        Player theDealer = blackjackSimulationRunner.getBlackjackSimulator().getGameOfBlackjack().getTheDealer();
+        String theDealersHand = theDealer.getHandString();
+        String messageWithDealersName = theDealer.getName() + ": " + theDealersHand;
+
+        InOrder inOrder = inOrder(mockedLogger);
+        inOrder.verify(mockedLogger).print(messageWithSamsName);
+        inOrder.verify(mockedLogger).print(messageWithDealersName);
+    }
 }
