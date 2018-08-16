@@ -21,6 +21,10 @@ public class Player {
         return score;
     }
 
+    public String getHandString() {
+        return null;
+    }
+
     public String getName() {
         return name;
     }

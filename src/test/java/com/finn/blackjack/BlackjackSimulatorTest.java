@@ -98,4 +98,15 @@ public class BlackjackSimulatorTest {
         Player winner = blackjackSimulationRunner.getBlackjackSimulator().getGameOfBlackjack().getWinner();
         verify(mockedLogger, times(1)).print(winner.getName());
     }
+
+    @Test
+    public void whenGameIsFinishedSamsHandIsPrinted() throws IOException {
+        BlackjackSimulationRunner blackjackSimulationRunner = new BlackjackSimulationRunner();
+        Logger mockedLogger = mock(Logger.class);
+        blackjackSimulationRunner.getBlackjackSimulator().setLogger(mockedLogger);
+        blackjackSimulationRunner.simulateBlackjackGame();
+        Player sam = blackjackSimulationRunner.getBlackjackSimulator().getGameOfBlackjack().getSam();
+        String samsHand = sam.getHandString();
+        verify(mockedLogger, times(1)).print(samsHand);
+    }
 }
